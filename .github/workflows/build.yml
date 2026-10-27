@@ -47,12 +47,10 @@ jobs:
         with:
           version: 9
 
-      - name: Setup Node.js (v20)
+      - name: Setup Node.js (v22)
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'pnpm'
-          cache-dependency-path: 'client/pnpm-lock.yaml'
+          node-version: 22
 
       # ─── Step 3: Build React Client Webapp ───
       - name: Install Webapp Dependencies
@@ -92,7 +90,7 @@ jobs:
           echo "Successfully synchronized assets:"
           ls -la "$TARGET_ASSETS_DIR"
 
-      # ─── Step 6: Setup Java & Android SDK ───
+      # ─── Step 6: Setup Java & Gradle ───
       - name: Setup Java (Temurin JDK 17)
         uses: actions/setup-java@v4
         with:
@@ -102,12 +100,14 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          gradle-version: '8.11.1'
 
-      # ─── Step 7: Permissions & Validation ───
-      - name: Grant Execute Permissions to Gradle Wrapper
+      # ─── Step 7: Bootstrap Gradle Wrapper & Permissions ───
+      - name: Generate Wrapper JAR and Permissions
         working-directory: android
-        run: chmod +x gradlew
+        run: |
+          gradle wrapper --gradle-version 8.11.1
+          chmod +x gradlew
 
       # ─── Step 8: Build Android Host APK (Debug) ───
       - name: Build Debug APK
@@ -133,8 +133,8 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          echo "Building Android Release APK (unsigned if no secrets provided)..."
-          ./gradlew assembleRelease --stacktrace || ./gradlew assembleReleaseUnsigned --stacktrace || true
+          echo "Building Android Release APK..."
+          ./gradlew assembleRelease --stacktrace || true
           ls -la app/build/outputs/apk/release/ || true
 
       # ─── Step 10: Upload Android Artifacts ───
