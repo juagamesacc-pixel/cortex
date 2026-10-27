@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cortex-primary: #6750A4;
+  --cortex-primary-container: #EADDFF;
+  --cortex-on-primary: #FFFFFF;
+  --cortex-on-primary-container: #21005D;
+  --cortex-surface: #141218;
+  --cortex-surface-container: #211F26;
+  --cortex-surface-container-high: #2B2930;
+  --cortex-surface-bright: #3B383E;
+  --cortex-surface-card: rgba(33, 31, 38, 0.85);
+  --cortex-thinking: #D0BCFF;
+  --cortex-acting: #4CAF50;
+  --cortex-reflecting: #FFB74D;
+  --cortex-error: #F2B8B5;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--cortex-surface);
+  color: #E6E1E5;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+}
+
+/* Custom Minimalist Scrollbars */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Android Glassmorphism Card Style */
+.glass-panel {
+  background: rgba(33, 31, 38, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Soft Breathing Glow */
+@keyframes breathingGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(208, 188, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(208, 188, 255, 0.45);
+  }
+}
+
+.glow-thinking {
+  animation: breathingGlow 2.5s infinite ease-in-out;
+}

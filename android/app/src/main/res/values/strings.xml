@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Cortex</string>
+    <string name="service_running">Cortex Agent is executing in background</string>
+</resources>

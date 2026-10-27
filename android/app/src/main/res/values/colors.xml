@@ -1,0 +1,5 @@
+<resources>
+    <color name="cortex_primary">#6750A4</color>
+    <color name="cortex_surface">#141218</color>
+    <color name="cortex_surface_container">#211F26</color>
+</resources>
